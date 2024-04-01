@@ -1,0 +1,109 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+    <div class="page-content instructor-page-content">
+        <div class="container">
+            <div class="row">
+
+                {% include 'instructor/partials/sidebar.html' %}
+
+
+                <div class="col-xl-9 col-lg-8 col-md-12">
+                    <div class="row">
+                        <div class="col-md-4 d-flex">
+                            <div class="card instructor-card w-100">
+                                <div class="card-body">
+                                    <div class="instructor-inner">
+                                        <h6>REVENUE</h6>
+                                        <h4 class="instructor-text-success">KSh. {{ instructor.get_revenue|default:'0' }}</h4>
+                                        <p>Total Earnings</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex">
+                            <div class="card instructor-card w-100">
+                                <div class="card-body">
+                                    <div class="instructor-inner">
+                                        <h6>STUDENTS ENROLLMENTS</h6>
+                                        <h4 class="instructor-text-info">{{ request.user.profile.get_total_students|default:'0' }}</h4>
+                                        <p>Total Students</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex">
+                            <div class="card instructor-card w-100">
+                                <div class="card-body">
+                                    <div class="instructor-inner">
+                                        <h6>COURSES RATING</h6>
+                                        <h4 class="instructor-text-warning">{{ request.user.profile.get_avg_rating|default:"-" }}</h4>
+                                        <p>Average Ratings</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="settings-widget">
+                                <div class="settings-inner-blk p-0">
+                                    <div class="sell-course-head comman-space">
+                                        <h3>All Courses</h3>
+                                    </div>
+                                    <div class="comman-space pb-0">
+                                        <div class="settings-tickets-blk course-instruct-blk table-responsive">
+
+                                            <table class="table table-nowrap mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>COURSES</th>
+                                                        <th>STUDENTS</th>
+                                                        <th>AVG. RATINGS</th>
+                                                        <th>AMOUNT</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% if request.user.courses %}
+                                                    {% for course in request.user.courses.all %}
+                                                    <tr>
+                                                        <td>
+                                                            <div class="sell-table-group d-flex align-items-center">
+                                                                <div class="sell-group-img">
+                                                                    <a href="{{ course.get_absolute_url }}">
+                                                                        <img src="{% if course.front_image %}{{ course.front_image.url }}{% else %}/static/img/course/course-10.jpg{% endif %}"
+                                                                            class="img-fluid " alt>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="sell-tabel-info">
+                                                                    </p>
+                                                                    <p><a href="{{ course.get_absolute_url }}">{{ course.title|title|default:'No Title' }}</a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>{{ course.get_avg_rating|default:'0'}}</td>
+                                                        <td>{{ course.students.all.count }}</td>
+                                                        <td>Ksh. {{ course.price|default:'0' }}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                    {% else %}
+                                                    <tr>
+                                                        <td colspan="3">No Course Yet</td>
+                                                    </tr>
+                                                    {% endif %}
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

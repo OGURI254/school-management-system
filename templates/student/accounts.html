@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    {% include 'student/partials/topbar.html' %}
+
+        <div class="page-content">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-xl-3 col-md-4 theiaStickySidebar">
+                        <div class="settings-widget account-settings">
+                            <div class="settings-menu">
+                                <h3>ACCOUNT SETTINGS</h3>
+                                <ul>
+                                    <li class="nav-item">
+                                        <a href="{% url 'users:profile' %}" class="nav-link {% if 'My Profile' in title or 'Account' in title %}active{% endif %}">
+                                            <i class="feather-settings"></i> My Profile
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{% url 'users:edit_profile' %}" class="nav-link {% if 'Edit Profile' in title %}active{% endif %}">
+                                            <i class="feather-settings"></i> Edit Profile
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{% url 'users:social_profile' %}" class="nav-link {% if 'Social Link' in title %}active{% endif %}">
+                                            <i class="feather-refresh-cw"></i> Social Profiles
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{% url 'account_logout' %}" class="nav-link">
+                                            <i class="feather-power"></i> Sign Out
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

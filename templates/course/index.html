@@ -1,0 +1,175 @@
+{% extends 'core/base.html' %}
+{% block title %}{{ title }} - Course - eLMS{% endblock %}
+
+{% block content %}
+    <section class="course-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    {% if courses %}
+                    <div class="row">
+                        {% for course in courses %}
+                        <div class="col-lg-4 col-md-6 d-flex">
+                            <div class="course-box course-design d-flex ">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <a href="{{ course.get_absolute_url }}">
+                                            <img class="img-fluid" alt src="{% if course.front_image %}{{ course.front_image.url }}{% else %}/static/img/course/front.jpg{% endif %}">
+                                        </a>
+                                        <div class="price">
+                                            <h3 class="small">{% if course.price %}Ksh. {{ course.price }}{% else %}<span class="text-success">FREE</span>{% endif %}</h3>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <div class="course-group d-flex">
+                                            <div class="course-group-img d-flex">
+                                                <a href="{{ course.owner.profile.get_absolute_url }}"><img src="{% if course.owner.profile.image %}{{ course.owner.profile.image.url }}{% else %}/static/img/user/default.png{% endif %}" alt class="img-fluid"></a>
+                                                <div class="course-name">
+                                                    <h4><a href="{{ course.owner.profile.get_absolute_url }}">{{ course.owner.get_full_name|default:'Anonymous'}}</a></h4>
+                                                    <p>{{ course.category.title }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h3 class="title"><a href="{{ course.get_absolute_url }}">{{ course.title }}</a></h3>
+                                        <div class="course-info d-flex align-items-center">
+                                            <div class="rating-img d-flex align-items-center">
+                                                <img src="/static/img/icon/icon-01.svg" alt>
+                                                <a href="{{ course.category.get_absolute_url }}">{{ course.units.all.count }}+ Units</a>
+                                            </div>
+                                            <div class="course-view d-flex align-items-center">
+                                                <img src="/static/img/icon/icon-02.svg" alt>
+                                                <p>{{ course.units.all.count }}hrs {{ course.id }}min</p>
+                                            </div>
+                                        </div>
+                                        <div class="rating">
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star"></i>
+                                            <span class="d-inline-block average-rating"><span>4.0</span> ({{course.reviews.all.count}})</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="pagination lms-page">
+                                {% if courses.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=1"><i class="fas fa-angle-left"></i><i class="fas fa-angle-left"></i></a>
+                                </li>
+                                <li class="page-item prev">
+                                    <a class="page-link" href="?page={{ courses.previous_page_number }}" tabindex="-1"><i class="fas fa-angle-left"></i></a>
+                                </li>
+                                {% endif %}
+                                <li class="page-item first-page active">
+                                    <a class="page-link" href="#">{{ courses.number }}/{{ courses.paginator.num_pages }}</a>
+                                </li>
+                                {% if courses.has_next %}
+                                <li class="page-item next">
+                                    <a class="page-link" href="?page={{ courses.next_page_number }}"><i class="fas fa-angle-right"></i></a>
+                                </li>
+                                <li class="page-item next">
+                                    <a class="page-link" href="?page={{ courses.paginator.num_pages }}"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    {% else %}
+                    <p>No Course Found</p>
+                    {% endif %}
+                </div>
+                <div class="col-lg-3 theiaStickySidebar">
+                    <div class="filter-clear">
+                        <h3 class="m-2">Filter By</h3>
+                        {% if categories %}
+                        <div class="card search-filter">
+                            <div class="card-body">
+                                <div class="filter-widget mb-0">
+                                    <div class="categories-head d-flex align-items-center">
+                                        <h4>Categories</h4>
+                                        <i class="fas fa-angle-down"></i>
+                                    </div>
+                                        <a href="{% url 'course:index' %}" class="mb-2 mx-2 {% if not category %}text-primary{% endif %}">All Courses</a> <br>
+                                    {% for obj_category in categories %}
+                                        <a href="{{ obj_category.get_absolute_url }}" class="mb-2 mx-2 {% if category == obj_category %}text-primary{% endif %}">{{ obj_category.title }} ({{obj_category.courses.all.count}})</a> <br>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if academic_levels %}
+                        <div class="card search-filter">
+                            <div class="card-body">
+                                <div class="filter-widget mb-0">
+                                    <div class="categories-head d-flex align-items-center">
+                                        <h4>Academic Level</h4>
+                                        <i class="fas fa-angle-down"></i>
+                                    </div>
+                                    {% for a_level in academic_levels %}
+                                        <a href="{{ a_level.get_absolute_url }}" class="mb-2 mx-2 {% if category == a_level %}text-primary{% endif %}">{{ a_level.title }} ({{ a_level.courses.all.count }})</a> <br>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <div class="card post-widget ">
+                            <div class="card-body">
+                                <div class="latest-head d-flex align-items-center justify-content-between">
+                                    <h4 class="card-title">Course Level</h4>
+                                    <i class="fas fa-angle-down"></i>
+                                </div>
+                                <ul class="latest-posts">
+                                    <li>
+                                        <div class="post-info free-color">
+                                            <h4>
+                                                <a href="">Beginner</a>
+                                            </h4>
+                                            <p>
+                                                <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                                <i class="fa fa-star text-muted" aria-hidden="true"></i>
+                                                <i class="fa fa-star text-muted" aria-hidden="true"></i>
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="post-info free-color">
+                                            <h4>
+                                                <a href="">Intermediate</a>
+                                            </h4>
+                                            <p>
+                                                <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                                <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                                <i class="fa fa-star text-muted" aria-hidden="true"></i>
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="post-info free-color">
+                                            <h4>
+                                                <a href="">Expert</a>
+                                            </h4>
+                                            <p>
+                                                <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                                <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                                <i class="fa fa-star text-warning" aria-hidden="true"></i>
+                                            </p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

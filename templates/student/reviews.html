@@ -1,0 +1,64 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+{% include 'student/partials/topbar.html' %}
+<div class="page-content instructor-page-content">
+    <div class="container">
+        <div class="row">
+
+
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="settings-widget">
+                            <div class="settings-inner-blk p-0">
+                                <div class="sell-course-head comman-space">
+                                    <h3>Reviews</h3>
+                                    <p>Find all your reviews</p>
+                                </div>
+                                {% if user.reviews.all %}
+                                {% for review in user.reviews.all %}
+                                <div class="comman-space bdr-bottom-line">
+                                    <div class="instruct-review-blk ">
+                                        <div class="review-item">
+                                            <div class="instructor-wrap border-0 m-0">
+                                                <div class="about-instructor">
+                                                    <div class="abt-instructor-img">
+                                                        <a href=""><img
+                                                                src="{% if review.user.profile.image %}{{ review.user.profile.image.url }}{% else %}/static/img/user/user1.jpg{% endif %}" alt="img"
+                                                                class="img-fluid"></a>
+                                                    </div>
+                                                    <div class="instructor-detail">
+                                                        <h5><a href="">{{ review.user.get_full_name }}</a>
+                                                        </h5>
+                                                        <p>Student</p>
+                                                    </div>
+                                                </div>
+                                                <div class="rating">
+                                                    {% for i in '12345' %}
+                                                    {% if forloop.counter < review.ratings %}
+                                                    <i class="fas fa-star filled"></i>
+                                                    {% else %}
+                                                    <i class="fas fa-star"></i>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                            <p class="rev-info">{{ review.message|safe }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% else %}
+                                <p class="text-center">No Reviews Lef Yet</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

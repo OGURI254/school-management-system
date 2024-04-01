@@ -1,0 +1,49 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+        <section class="course-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9 col-md-12">
+
+                        <div class="blog">
+                            <div class="blog-image">
+                                <a href="{{ blog.get_absolute_url }}"><img class="img-fluid" src="{% if blog.cover_image %}{{ blog.cover_image.url }}{% else %}/static/img/blog/cover-default.png{% endif %}"
+                                        alt="{{ title }}"></a>
+                            </div>
+                            <div class="blog-info clearfix">
+                                <div class="post-left">
+                                    <ul>
+                                        <li>
+                                            <div class="post-author">
+                                                <a href="{{ blog.author.profile.get_absolute_url }}"><img src="{% if blog.author.profile.image %}{{ blog.author.profile.image.url }}{% else %}/static/img/user/default.png{% endif %}"
+                                                        alt="{{ blog.author.get_full_name|default:'Anonimous'}}"> <span>{{ blog.author.get_full_name|default:'Anonimous'}}</span></a>
+                                            </div>
+                                        </li>
+                                        <li><img class="img-fluid" src="/static/img/icon/icon-22.svg" alt>{{ blog.published_at }}
+                                        </li>
+                                        <li><img class="img-fluid" src="/static/img/icon/icon-23.svg" alt>
+                                            {% if blog.tags.all %}
+                                                {% for tag in blog.tags.all %}
+                                                    {{ tag }},  
+                                                {% endfor %}
+                                            {% endif %}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <h3 class="blog-title"><a href="{{ blog.get_absolute_url }}">{{ title }}</a></h3>
+                            <div class="blog-content">
+                                {{ blog.description|safe }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {% include 'blog/aside.html' %}
+
+                </div>
+            </div>
+        </section>
+
+{% endblock %}

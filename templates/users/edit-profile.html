@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="page-content instructor-page-content">
+    <div class="container">
+        <div class="row">
+
+            {% include 'instructor/partials/sidebar.html' %}
+
+            <div class="col-xl-9 col-md-8">
+                <div class="settings-widget profile-details">
+                    <div class="settings-menu p-0">
+                        <div class="profile-heading">
+                            <h3>Profile Details</h3>
+                            <p>You have full control to manage your own account setting.</p>
+                        </div>
+
+                        <div class="checkout-form personal-address add-course-info">
+                            <div class="personal-info-head">
+                                <h4>Personal Details</h4>
+                                <p>Edit your personal information.</p>
+                            </div>
+                            <form action="#" method="POST">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                                {{ pform|crispy }}
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+

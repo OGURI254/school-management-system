@@ -1,0 +1,97 @@
+<footer class="footer">
+
+    <div class="footer-top aos" data-aos="fade-up">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="footer-widget footer-about">
+                        <div class="footer-logo" style="font-weight:bolder; font-size: 20px;">
+                            <span class="text-primary">Edu</span>Connect
+                        </div>
+                        <div class="footer-about-content">
+                            <p>
+                                EduConnect Kenya is an advanced online tutoring marketplace strategically developed to address the educational disparities by establishing a seamless connection between students and proficient tutors.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <div class="footer-widget footer-menu">
+                        <h2 class="footer-title">Quick Links</h2>
+                        <ul>
+                            <li><a href="/">Homepage</a></li>
+                            <li><a href="{% url 'core:blog_list' %}">Blogs</a></li>
+                            <li><a href="{% url 'core:faq' %}">FAQs</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-6">
+                    <div class="footer-widget footer-menu">
+                        <h2 class="footer-title">Courses</h2>
+                        <ul>
+                            <li><a href="{% url 'course:index' %}">All Courses</a></li>
+                            <li><a href="{% url 'course:index' %}">By Academic Level</a></li>
+                            <li><a href="{% url 'course:categories' %}">By Category</a></li>
+                            <li><a href="{% url 'course:index' %}">By Level</a></li>
+                            <li><a href="{% url 'instructor:list' %}">Find Instructors</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="footer-widget footer-contact">
+                        <h2 class="footer-title">Contact Us</h2>
+                        <div class="footer-contact-info">
+                            <div class="footer-address">
+                                <img src="/static/img/icon/icon-20.svg" alt class="img-fluid">
+                                <p> Tech House, JKUAT Main Camput,<br> Kiambu</p>
+                            </div>
+                            <p>
+                                <a href="{% url 'core:contact' %}">Contact Us</a>
+                            </p>
+                            <p>
+                                <img src="/static/img/icon/icon-19.svg" alt class="img-fluid">
+                                <a href="mailto:support@connect.edu" class="__cf_email__">support@connect.edu</a>
+                            </p>
+                            <p class="mb-0">
+                                <img src="/static/img/icon/icon-21.svg" alt class="img-fluid">
+                                +254790193045
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="footer-bottom">
+        <div class="container">
+
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="privacy-policy">
+                            <ul>
+                                <li><a href="{% url 'core:terms' %}">Terms</a></li>
+                                <li><a href="{% url 'core:privacy' %}">Privacy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="copyright-text">
+                            <p class="mb-0">&copy; 2023 <a href="/">EduConnnect</a>. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</footer>

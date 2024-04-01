@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="page-content instructor-page-content">
+    <div class="container">
+        <div class="row">
+
+            {% include 'instructor/partials/sidebar.html' %}
+
+            <div class="col-xl-9 col-md-8">
+                <div class="settings-widget profile-details">
+                    <div class="settings-menu p-0">
+                        <div class="profile-heading">
+                            <h3>Social Profiles</h3>
+                            <p>Add your social profile links in below social accounts.</p>
+                        </div>
+                        <div class="checkout-form personal-address">
+                            <form action="#" method="POST">
+                                <div class="row">
+                                    {% csrf_token %}
+                                    {{ form|crispy }}
+                                    <div class="update-profile save-social">
+                                        <button type="submit" class="btn btn-primary">Save/Update Social
+                                            Profile</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

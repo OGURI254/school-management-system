@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Homepage - EduConnect Kenya</title>
+
+{% include 'partials/css.html' %}
+</head>
+
+<body>
+    <div class="main-wrapper">
+
+        {% include 'partials/top-nav.html' %}
+
+        <section class="home-slide d-flex align-items-center">
+            <div class="container">
+                <div class="row ">
+                    <div class="col-md-7">
+                        <div class="home-slide-face aos" data-aos="fade-up">
+                            <div class="home-slide-text ">
+                                <h5>Empowering Kenyan Learners</h5>
+                                <h1>Personalized tutoring for Students</h1>
+                                <p>Unlock your academic potential with tailored support.</p>
+                            </div>
+                            <div class="banner-content">
+                                <form class="form" action="{% url 'instructor:list' %}" method="GET">
+                                    <div class="form-inner">
+                                        <div class="input-group">
+                                            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                                            <input type="search" class="form-control" required name="q" placeholder="Search tutors...">
+                                            <button class="btn btn-primary sub-btn" type="submit"><i class="fas fa-arrow-right"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="trust-user">
+                                <p>Trusted by over {{total_users}} Students <br>across Kenya since 2023</p>
+                                <div class="trust-rating d-flex align-items-center">
+                                    <div class="rate-head">
+                                        <h2><span>{{ reviews.all.count }}</span>+</h2>
+                                    </div>
+                                    <div class="rating d-flex align-items-center">
+                                        <h2 class="d-inline-block average-rating">5</h2>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 d-flex align-items-center">
+                        <div class="girl-slide-img aos" data-aos="fade-up">
+                            <img src="/static/img/object.png" alt>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+        <section class="section student-course">
+            <div class="container">
+                <div class="course-widget">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="course-full-width">
+                                <div class="blur-border course-radius align-items-center aos" data-aos="fade-up">
+                                    <div class="online-course d-flex align-items-center">
+                                        <div class="course-img">
+                                            <img src="/static/img/pencil-icon.svg" alt>
+                                        </div>
+                                        <div class="course-inner-content">
+                                            <h4><span>{{ total_courses }}</span>+</h4>
+                                            <p>Online Courses</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 d-flex">
+                            <div class="course-full-width">
+                                <div class="blur-border course-radius aos" data-aos="fade-up">
+                                    <div class="online-course d-flex align-items-center">
+                                        <div class="course-img">
+                                            <img src="/static/img/cources-icon.svg" alt>
+                                        </div>
+                                        <div class="course-inner-content">
+                                            <h4><span>{{ tutors.all.count }}</span>+</h4>
+                                            <p>Expert Tutors</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 d-flex">
+                            <div class="course-full-width">
+                                <div class="blur-border course-radius aos" data-aos="fade-up">
+                                    <div class="online-course d-flex align-items-center">
+                                        <div class="course-img">
+                                            <img src="/static/img/certificate-icon.svg" alt>
+                                        </div>
+                                        <div class="course-inner-content">
+                                            <h4><span>{{ total_courses }}</span>+</h4>
+                                            <p>Ceritified Courses</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 d-flex">
+                            <div class="course-full-width">
+                                <div class="blur-border course-radius aos" data-aos="fade-up">
+                                    <div class="online-course d-flex align-items-center">
+                                        <div class="course-img">
+                                            <img src="/static/img/gratuate-icon.svg" alt>
+                                        </div>
+                                        <div class="course-inner-content">
+                                            <h4><span>{{ total_students }}</span>+</h4>
+                                            <p>Online Students</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {% if categories %}
+            <section class="section how-it-works">
+                <div class="container">
+                    <div class="section-header aos" data-aos="fade-up">
+                        <div class="section-sub-head">
+                            <span>Explore Course Categories</span>
+                            <h2>Dive into Various Subject Areas</h2>
+                        </div>
+                        <div class="all-btn all-category d-flex align-items-center">
+                            <a href="{% url 'course:categories' %}" class="btn btn-primary">All Categories</a>
+                        </div>
+                    </div>
+                    <div class="section-text aos" data-aos="fade-up">
+                        <p>Delve into a multitude of subject areas with our diverse range of course categories. Find the right courses in your area of interest.</p>
+                    </div>
+                    <div class="owl-carousel mentoring-course owl-theme aos" data-aos="fade-up">
+                        {% for category in categories %}
+                        <div class="feature-box text-center ">
+                            <a href="{{ category.get_absolute_url }}">
+                            <div class="feature-bg">
+                                <div class="feature-header">
+                                    <div class="feature-icon">
+                                        {% if category.image %}
+                                            <img src="{{ category.image.url }}" width="120">
+                                        {% else %}
+                                            <img src="/static/img/categories-icon.png" width="120">
+                                        {% endif %}
+                                    </div>
+                                    <div class="feature-cont">
+                                        <div class="feature-text">{{ category.title }}</div>
+                                    </div>
+                                </div>
+                                <p>{{ category.courses.all.count }} Courses</p>
+                            </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+        
+        {% if courses %}
+            <section class="section new-course">
+                <div class="container">
+                    <div class="section-header aos" data-aos="fade-up">
+                        <div class="section-sub-head">
+                            <span>Featured for You</span>
+                            <h2>Handpicked Courses</h2>
+                        </div>
+                        <div class="all-btn all-category d-flex align-items-center">
+                            <a href="{% url 'course:index' %}" class="btn btn-primary">All Courses</a>
+                        </div>
+                    </div>
+                    <div class="section-text aos" data-aos="fade-up">
+                        <p class="mb-0">Explore specially curated courses designed to enhance your learning experience. Find what's trending and relevant to your academic growth.</p>
+                    </div>
+                    <div class="course-feature">
+                        <div class="row">
+                            {% for course in courses %}
+                            <div class="col-lg-4 col-md-6 d-flex">
+                                <div class="course-box d-flex aos" data-aos="fade-up">
+                                    <div class="product">
+                                        <div class="product-img">
+                                            <a href="{{ course.get_absolute_url }}">
+                                                <img class="img-fluid" alt src="{% if course.front_image %}{{ course.front_image.url }}{% else %}/static/img/course/front.jpg{% endif %}">
+                                            </a>
+                                            <div class="price">
+                                                <h3>{% if course.price %}Ksh. {{ course.price }}{% else %}<span class="text-success">FREE</span>{% endif %}</h3>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <div class="course-group d-flex">
+                                                <div class="course-group-img d-flex">
+                                                    <a href="{{ course.owner.profile.get_absolute_url }}"><img src="{% if course.owner.profile.image %}{{ course.owner.profile.image.url }}{% else %}/static/img/user/default.png{% endif %}" alt class="img-fluid"></a>
+                                                    <div class="course-name">
+                                                        <h4><a href="">{{ course.owner.get_full_name }}</a></h4>
+                                                        <a href="{{ course.category.get_absolute_url }}">{{ course.category }}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h3 class="title instructor-text"><a href="{{ course.get_absolute_url }}">{{ course.title }}</a></h3>
+                                            <div class="course-info d-flex align-items-center">
+                                                <div class="rating-img d-flex align-items-center">
+                                                    <img src="/static/img/icon/icon-01.svg" alt>
+                                                    <p>{{ course.units.all.count }}+ Units</p>
+                                                </div>
+                                                <div class="course-view d-flex align-items-center">
+                                                    <img src="/static/img/icon/icon-02.svg" alt>
+                                                    <p>Approx. {{ course.units.all.count }}hrs {{ course.id }}min</p>
+                                                </div>
+                                            </div>
+                                            <div class="rating">
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star"></i>
+                                                <span class="d-inline-block average-rating"><span>4.0</span> ({{ course.reviews.all.count }})</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+
+        <section class="section master-skill">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 col-md-12">
+                        <div class="section-header aos" data-aos="fade-up">
+                            <div class="section-sub-head">
+                                <span>Empower Your Learning Journey</span>
+                                <h2>Forge Your Career Path with Tailored Education</h2>
+                            </div>
+                        </div>
+                        <div class="section-text aos" data-aos="fade-up">
+                            <p>Acquire vital skills, earn certifications, and propel your career journey—whether you're starting your educational voyage or a seasoned professional. 95% of our learners have experienced direct career enhancements from our comprehensive learning materials.</p>
+                        </div>
+                        <div class="career-group aos" data-aos="fade-up">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 d-flex">
+                                    <div class="certified-group blur-border d-flex">
+                                        <div class="get-certified d-flex align-items-center">
+                                            <div class="blur-box">
+                                                <div class="certified-img ">
+                                                    <img src="/static/img/icon/icon-1.svg" alt class="img-fluid">
+                                                </div>
+                                            </div>
+                                            <p>Engage with skilled tutors for personalized learning</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 d-flex">
+                                    <div class="certified-group blur-border d-flex">
+                                        <div class="get-certified d-flex align-items-center">
+                                            <div class="blur-box">
+                                                <div class="certified-img ">
+                                                    <img src="/static/img/icon/icon-2.svg" alt class="img-fluid">
+                                                </div>
+                                            </div>
+                                            <p>Stay updated with the latest in technology and innovation</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 d-flex">
+                                    <div class="certified-group blur-border d-flex">
+                                        <div class="get-certified d-flex align-items-center">
+                                            <div class="blur-box">
+                                                <div class="certified-img ">
+                                                    <img src="/static/img/icon/icon-3.svg" alt class="img-fluid">
+                                                </div>
+                                            </div>
+                                            <p>Access 100+ certification courses for skill validation</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 d-flex">
+                                    <div class="certified-group blur-border d-flex">
+                                        <div class="get-certified d-flex align-items-center">
+                                            <div class="blur-box">
+                                                <div class="certified-img ">
+                                                    <img src="/static/img/icon/icon-4.svg" alt class="img-fluid">
+                                                </div>
+                                            </div>
+                                            <p>Personalize your learning journey with diverse course offerings</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-12 d-flex align-items-end">
+                        <div class="career-img aos" data-aos="fade-up">
+                            <img src="/static/img/join.png" alt class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section trend-course">
+            <div class="container">
+                {% if instructors %}
+                <div class="feature-instructors">
+                    <div class="section-header aos" data-aos="fade-up">
+                        <div class="section-sub-head feature-head text-center">
+                            <h2>Meet Tutors Around You</h2>
+                        </div>
+                    </div>
+                    <div class="owl-carousel instructors-course owl-theme aos" data-aos="fade-up">
+                        {% for tutor in instructors %}
+                        <div class="instructors-widget">
+                            <div class="instructors-img ">
+                                <a href="{{ tutor.get_absolute_url }}">
+                                    <img class="img-fluid" alt src="{% if tutor.image %}{{ tutor.image.url }}{% else %}/static/img/user/default.png{% endif %}">
+                                </a>
+                            </div>
+                            <div class="instructors-content text-center">
+                                <h5><a href="{{ tutor.get_absolute_url }}">{{ tutor.user.get_full_name|default:'Anonymous' }}</a></h5>
+                                <p>{{ tutor.position }}</p>
+                                <div class="student-count d-flex justify-content-center">
+                                    <i class="fa-solid fa-user-group"></i>
+                                    <span>{{ tutor.user.courses.all.count }} Courses</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                <p class="text-center">
+                    <a href="{% url 'instructor:apply' %}" class="btn btn-primary">Apply Now to Become Tutor</a>
+                </p>
+            </div>
+        </section>
+
+        <section class="section lead-companies">
+            <div class="container">
+                <div class="section-header aos" data-aos="fade-up">
+                    <div class="section-sub-head feature-head text-center">
+                        <span>Trusted By</span>
+                        <h2>Partnered with 50+ Leading Universities and Companies</h2>
+                    </div>
+                </div>
+                <div class="lead-group aos" data-aos="fade-up">
+                    <div class="lead-group-slider owl-carousel owl-theme">
+                        <div class="item">
+                            <div class="lead-img">
+                                <img class="img-fluid" alt src="/static/img/lead-01.png" style="max-height: 70px;">
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="lead-img">
+                                <img class="img-fluid" alt src="/static/img/lead-02.webp" style="max-height: 70px;">
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="lead-img">
+                                <img class="img-fluid" alt src="/static/img/lead-01.jpg" style="max-height: 70px;">
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="lead-img">
+                                <img class="img-fluid" alt src="/static/img/lead-02.png" style="max-height: 70px;">
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="lead-img">
+                                <img class="img-fluid" alt src="/static/img/lead-02.jpg" style="max-height: 70px;">
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="lead-img">
+                                <img class="img-fluid" alt src="/static/img/lead-01.jpeg" style="max-height: 70px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section share-knowledge">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="knowledge-img aos" data-aos="fade-up">
+                            <img src="/static/img/share.png" alt class="img-fluid">
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center">
+                        <div class="join-mentor aos" data-aos="fade-up">
+                            <h2>Ready to share Knowledge? Join Us as an Instructor</h2>
+                            <p>Share your expertise and knowledge. High-definition video is video of higher resolution and quality than standard-definition.</p>
+                            <ul class="course-list">
+                                <li><i class="fa-solid fa-circle-check"></i>Offer Quality Courses</li>
+                                <li><i class="fa-solid fa-circle-check"></i>Engage with Top-rated Instructors</li>
+                            </ul>
+                            <div class="all-btn all-category d-flex align-items-center">
+                                <a href="" class="btn btn-primary">Explore More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section user-love">
+            <div class="container">
+                <div class="section-header white-header aos" data-aos="fade-up">
+                    <div class="section-sub-head feature-head text-center">
+                        <span>Real Reviews</span>
+                        <h2>Users Love Us! Don't just take it from us.</h2>
+                    </div>
+                </div>
+            </div>
+        </section>        
+
+        {% if reviews %}
+        <section class="testimonial-four">
+            <div class="review">
+                <div class="container">
+                    <div class="testi-quotes">
+                        <img src="/static/img/qute.png" alt>
+                    </div>
+                    <div class="mentor-testimonial lazy slider aos" data-aos="fade-up" data-sizes="50vw ">
+                        {% for review in reviews %}
+                        <div class="d-flex justify-content-center">
+                            <div class="testimonial-all d-flex justify-content-center">
+                                <div class="testimonial-two-head text-center align-items-center d-flex">
+                                    <div class="testimonial-four-saying ">
+                                        <div class="testi-right">
+                                            <img src="/static/img/qute-01.png" alt>
+                                        </div>
+                                        <p>{{ review.get_overview }} <br>    <small>({{ review.ratings }} Stars)</small></p>
+                                        <div class="four-testimonial-founder">
+                                            <div class="fount-about-img">
+                                                <a href="{{ review.user.profile.get_absolute_url }}"><img src="{% if review.user.profile.image %}{{ review.user.profile.image.url }}{% else %}/static/img/user/default.png{% endif %}" class="img-fluid"></a>
+                                            </div>
+                                            <h3><a href="{{ review.user.profile.get_absolute_url }}">{{ review.user.get_full_name|default:'Anonimous' }}</a></h3>
+                                            <span>{{ review.user.profile.position }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% else %}
+            <p>No Reviews Left</p>
+        {% endif %}
+
+        <section class="section become-instructors aos" data-aos="fade-up">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 d-flex">
+                        <div class="student-mentor cube-instuctor ">
+                            <h4>Teach With Us</h4>
+                            <div class="row">
+                                <div class="col-lg-7 col-md-12">
+                                    <div class="top-instructors">
+                                        <p>Join top educators from diverse backgrounds and inspire Kenyan students with your expertise.</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 col-md-12">
+                                    <div class="mentor-img">
+                                        <img class="img-fluid" alt src="/static/img/become-02.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 d-flex">
+                        <div class="student-mentor yellow-mentor">
+                            <h4>Enhance Access to Education</h4>
+                            <div class="row">
+                                <div class="col-lg-8 col-md-12">
+                                    <div class="top-instructors">
+                                        <p>Sign up to receive our newsletter, course suggestions, and special offers—transforming the way you learn.</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="mentor-img">
+                                        <img class="img-fluid" alt src="/static/img/become-01.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section latest-blog">
+            <div class="container">
+                <div class="section-header aos" data-aos="fade-up">
+                    <div class="section-sub-head feature-head text-center mb-0">
+                        <h2>Explore Our Latest Blog Posts</h2>
+                        <div class="section-text aos" data-aos="fade-up">
+                            <p class="mb-0">Stay updated with our diverse range of blog posts covering everything from tech tips, industry news, and expert insights to educational advice and inspiring stories. Discover informative, engaging, and thought-provoking content!</p>
+                        </div>
+                    </div>
+                </div>                
+                {% if blogs %}
+                <div class="owl-carousel blogs-slide owl-theme aos" data-aos="fade-up">
+                    {% for blog in blogs %}
+                    <div class="instructors-widget blog-widget">
+                        <div class="instructors-img">
+                            <a href="{{ blog.get_absolute_url }}">
+                                <img class="img-fluid" alt src="{% if blog.front_image %}{{ blog.front_image.url }}{% else %}/static/img/blog/front-default.png{% endif %}">
+                            </a>
+                        </div>
+                        <div class="instructors-content text-center">
+                            <h5><a href="{{ blog.get_absolute_url }}">{{ blog.title|truncatechars:45 }}</a></h5>
+                            <p><a href="{{ blog.category.get_blogs_url }}">{{ blog.category.title }}</a></p>
+                            <div class="student-count d-flex justify-content-center">
+                                <i class="fa-solid fa-calendar-days"></i>
+                                <span>{{ blog.published_at }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                    <p class="text-center">No Blog Post Found</p>
+                {% endif %}
+                <div class="enroll-group aos" data-aos="fade-up">
+                    <div class="row ">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="total-course d-flex align-items-center">
+                                <div class="blur-border">
+                                    <div class="enroll-img ">
+                                        <img src="/static/img/icon/icon-07.svg" alt class="img-fluid">
+                                    </div>
+                                </div>
+                                <div class="course-count">
+                                    <h3><span class="counterUp">{{ total_students }}</span></h3>
+                                    <p>STUDENTS ENROLLED</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="total-course d-flex align-items-center">
+                                <div class="blur-border">
+                                    <div class="enroll-img ">
+                                        <img src="/static/img/icon/icon-08.svg" alt class="img-fluid">
+                                    </div>
+                                </div>
+                                <div class="course-count">
+                                    <h3><span class="counterUp">{{ total_courses }}</span></h3>
+                                    <p>TOTAL COURSES</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="total-course d-flex align-items-center">
+                                <div class="blur-border">
+                                    <div class="enroll-img ">
+                                        <img src="/static/img/icon/icon-09.svg" alt class="img-fluid">
+                                    </div>
+                                </div>
+                                <div class="course-count">
+                                    <h3><span class="counterUp">47</span></h3>
+                                    <p>COUNTIES</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lab-course">
+                    <div class="section-header aos" data-aos="fade-up">
+                        <div class="section-sub-head feature-head text-center">
+                            <h2>Unlock Boundless Learning with {{ total_courses }}+ Courses <br>and Over {{ total_courses }}0 Hands-on Labs</h2>
+                        </div>
+                    </div>                    
+                    <div class="icon-group aos" data-aos="fade-up">
+                        <div class="offset-lg-1 col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-1 col-3">
+                                    <div class="total-course d-flex align-items-center">
+                                        <div class="blur-border">
+                                            <div class="enroll-img ">
+                                                <img src="/static/img/icon/icon-09.svg" alt class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-3">
+                                    <div class="total-course d-flex align-items-center">
+                                        <div class="blur-border">
+                                            <div class="enroll-img ">
+                                                <img src="/static/img/icon/icon-10.svg" alt class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-3">
+                                    <div class="total-course d-flex align-items-center">
+                                        <div class="blur-border">
+                                            <div class="enroll-img ">
+                                                <img src="/static/img/icon/icon-16.svg" alt class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-3">
+                                    <div class="total-course d-flex align-items-center">
+                                        <div class="blur-border">
+                                            <div class="enroll-img ">
+                                                <img src="/static/img/icon/icon-12.svg" alt class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-3">
+                                    <div class="total-course d-flex align-items-center">
+                                        <div class="blur-border">
+                                            <div class="enroll-img ">
+                                                <img src="/static/img/icon/icon-13.svg" alt class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-3">
+                                    <div class="total-course d-flex align-items-center">
+                                        <div class="blur-border">
+                                            <div class="enroll-img ">
+                                                <img src="/static/img/icon/icon-14.svg" alt class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-3">
+                                    <div class="total-course d-flex align-items-center">
+                                        <div class="blur-border">
+                                            <div class="enroll-img ">
+                                                <img src="/static/img/icon/icon-15.svg" alt class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-3">
+                                    <div class="total-course d-flex align-items-center">
+                                        <div class="blur-border">
+                                            <div class="enroll-img ">
+                                                <img src="/static/img/icon/icon-16.svg" alt class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-3">
+                                    <div class="total-course d-flex align-items-center">
+                                        <div class="blur-border">
+                                            <div class="enroll-img ">
+                                                <img src="/static/img/icon/icon-17.svg" alt class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-3">
+                                    <div class="total-course d-flex align-items-center">
+                                        <div class="blur-border">
+                                            <div class="enroll-img ">
+                                                <img src="/static/img/icon/icon-18.svg" alt class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {% include 'partials/footer.html' %}
+
+    </div>
+
+    {% include 'partials/js.html' %}
+</body>
+</html>

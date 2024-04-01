@@ -1,0 +1,74 @@
+<div class="col-xl-3 col-lg-4 col-md-12 theiaStickySidebar">
+    <div class="settings-widget dash-profile">
+        <div class="settings-menu p-0">
+            <div class="profile-bg">
+                <img src="/static/img/instructor-profile-bg.jpg" alt>
+                <div class="profile-img">
+                    <a href="#"><img src="{% if request.user.profile.image %}{{ request.user.profile.image.url }}{% else %}/static/img/user/user15.jpg{% endif %}" alt></a>
+                </div>
+            </div>
+            <div class="profile-group">
+                <div class="profile-name text-center">
+                    <h4><a href="#">{{ request.user.get_full_name|default:'No Name' }}</a></h4>
+                    <p>Instructor</p>
+                </div>
+                <div class="go-dashboard text-center">
+                    <a href="{% url 'instructor:add_course' %}" class="btn btn-primary">Create New Course</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="settings-widget account-settings">
+        <div class="settings-menu">
+            <h3>DASHBOARD</h3>
+            <ul>
+                <li class="nav-item {% if 'Dashboard' in title %}active{% endif %}">
+                    <a href="{% url 'instructor:dashboard' %}" class="nav-link">
+                        <i class="feather-home"></i> My Dashboard
+                    </a>
+                </li>
+                <li class="nav-item {% if 'Course' in title %}active{% endif %}">
+                    <a href="{% url 'instructor:courses' %}" class="nav-link">
+                        <i class="feather-book"></i> My Courses
+                    </a>
+                </li>
+                <li class="nav-item {% if 'Review' in title %}active{% endif %}">
+                    <a href="{% url 'instructor:reviews' %}" class="nav-link">
+                        <i class="feather-star"></i> Reviews
+                    </a>
+                </li>
+                <li class="nav-item {% if 'Student' in title %}active{% endif %}">
+                    <a href="{% url 'instructor:students' %}" class="nav-link">
+                        <i class="feather-users"></i> Students
+                    </a>
+                </li>
+            </ul>
+            <div class="instructor-title">
+                <h3>ACCOUNT SETTINGS</h3>
+            </div>
+            <ul>
+                <li class="nav-item">
+                    <a href="{% url 'users:profile' %}" class="nav-link {% if 'My Profile' in title %}active{% endif %}">
+                        <i class="feather-settings"></i> My Profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'users:edit_profile' %}" class="nav-link {% if 'Edit Profile' in title %}active{% endif %}">
+                        <i class="feather-settings"></i> Edit Profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'users:social_profile' %}" class="nav-link {% if 'Social Link' in title %}active{% endif %}">
+                        <i class="feather-refresh-cw"></i> Social Profiles
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'account_logout' %}" class="nav-link">
+                        <i class="feather-power"></i> Sign Out
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>  
+</div>

@@ -1,0 +1,88 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<div class="page-content instructor-page-content">
+    <div class="container">
+        <div class="row">
+
+            {% include 'instructor/partials/sidebar.html' %}
+            <div class="col-xl-9 col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="settings-widget">
+                            <div class="settings-inner-blk p-0">
+                                <div class="sell-course-head comman-space">
+                                    <h3>Courses</h3>
+                                    <p>Manage your courses.</p>
+                                </div>
+                                <div class="comman-space pb-0">
+                                    <div class="instruct-search-blk">
+                                        <div class="show-filter choose-search-blk">
+                                            <form action="#">
+                                                <div class="row gx-2 align-items-center">
+                                                    <div class="col-md-12 col-item">
+                                                        <div class=" search-group">
+                                                            <i class="feather-search"></i>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Search our courses">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="settings-tickets-blk course-instruct-blk table-responsive">
+
+                                        <table class="table table-nowrap mb-2">
+                                            <thead>
+                                                <tr>
+                                                    <th>COURSES</th>
+                                                    <th>AVG RATINGS</th>
+                                                    <th>STUDENTS</th>
+                                                    <th>AMOUNT</th>
+                                                    <th>STATUS</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% if request.user.courses %}
+                                                {% for course in request.user.courses.all %}
+                                                <tr>
+                                                    <td>
+                                                        <div class="sell-table-group d-flex align-items-center">
+                                                            <div class="sell-group-img">
+                                                                <a href="{{ course.get_absolute_url }}">
+                                                                    <img src="{% if course.front_image %}{{ course.front_image.url }}{% else %}/static/img/course/course-10.jpg{% endif %}"
+                                                                        class="img-fluid " alt>
+                                                                </a>
+                                                            </div>
+                                                            <div class="sell-tabel-info">
+                                                                </p>
+                                                                <p><a href="{{ course.get_absolute_url }}">{{ course.title|title|default:'No Title' }}</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ course.get_avg_rating|default:'0'}}</td>
+                                                    <td>{{ course.students.all.count }}</td>
+                                                    <td>Ksh. {{ course.price|default:'0' }}</td>
+                                                    <td>{% if course.is_active %}<span class="bg-success p-2 text-white">Active</span>{% else %}<span>InActive</span>{% endif %}</td>
+                                                </tr>
+                                                {% endfor %}
+                                                {% else %}
+                                                <tr>
+                                                    <td colspan="5" class="text-center">No Course Found</td>
+                                                </tr>
+                                                {% endif %}
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

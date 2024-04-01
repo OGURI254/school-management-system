@@ -1,0 +1,94 @@
+{% extends 'core/base.html' %}
+{% block content %}
+        <section class="page-content course-sec course-lesson">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="lesson-group">
+                            {% if course.units.all %}
+                            {% for unit in course.units.all %}
+                            <div class="course-card">
+                                <h6 class="cou-title">
+                                    <a class="collapsed" data-bs-toggle="collapse" href="#collapseOne"
+                                        aria-expanded="false">Chapter {{ forloop.counter }} <span>{{ unit.lessons.all.count }} Lessons</span> </a>
+                                </h6>
+                                <div id="collapseOne" class="card-collapse collapse" style>
+                                    <ul>
+                                        {% if unit.lessons %}
+                                        {% for lesson in unit.lessons.all %}
+                                        <li>
+                                            <a href="{{ lesson.get_absolute_url }}" class="play-intro">{{ lesson }}</a>
+                                            <div>
+                                                <img src="/static/img/icon/play-icon.svg" alt>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                        {% else %}
+                                        <li>
+                                            <p>No Lesson Found </p>
+                                            <div>
+                                                <img src="/static/img/icon/lock.svg" alt>
+                                            </div>
+                                        </li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+
+                    </div>
+                    <div class="col-lg-8">
+
+                        <div class="student-widget lesson-introduction">
+                            {% if not lesson %}
+                            <div class="lesson-widget-group">
+                                <h4 class="tittle">{{ course.units.all.0.lessons.all.0.title|default:'Introduction' }}</h4>
+                                <div class="introduct-video">
+                                    {% if course.units.all.0.lessons.all.0.video %}
+                                    <a href="{{ course.units.all.0.lessons.all.0.video }}" class="video-thumbnail"
+                                        data-fancybox>
+                                        <div class="play-icon">
+                                            <i class="fa-solid fa-play"></i>
+                                        </div>
+                                        <img class src="{% if course.cover_image %}{{ course.cover_image.url }}{% else %}/static/img/video-img-01.jpg{% endif %}" alt>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                                <div class="introduct-video my-2">
+                                    <a href="{{ course.units.all.0.lessons.all.document }}" target="_blank">Download Documents</a>
+                                </div>
+                                <div class="introduct-video">
+                                    {{ course.units.all.0.lessons.all.0.notes|safe|default:'No Notes Provided' }}
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="lesson-widget-group">
+                                <h4 class="tittle">{{ lesson|default:'Introduction' }}</h4>
+                                <div class="introduct-video">
+                                    {% if lesson.video %}
+                                    <a href="{{ lesson.video }}" class="video-thumbnail"
+                                        data-fancybox>
+                                        <div class="play-icon">
+                                            <i class="fa-solid fa-play"></i>
+                                        </div>
+                                        <img class src="{% if course.cover_image %}{{ course.cover_image.url }}{% else %}/static/img/video-img-01.jpg{% endif %}" alt>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                                <div class="introduct-video my-2">
+                                    <a href="{{ lesson.document }}" class="nav-link text-primary" target="_blank">Download Documents</a>
+                                </div>
+                                <div class="introduct-video">
+                                    {{ lesson.notes|safe|default:'No Notes Provided' }}
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}

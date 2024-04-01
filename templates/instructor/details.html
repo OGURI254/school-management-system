@@ -1,0 +1,133 @@
+{% extends 'core/base.html' %}
+{% load humanize %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3 col-lg-4 col-md-12 theiaStickySidebar">
+                <div class="settings-widget dash-profile">
+                    <div class="settings-menu p-0">
+                        <div class="profile-bg">
+                            <h5>{{ instructor.location }}</h5>
+                            <img src="/static/img/instructor-profile-bg.jpg" alt>
+                            <div class="profile-img">
+                                <a href="{{ instructor.get_absolute }}"><img src="/static/img/user/user15.jpg" alt></a>
+                            </div>
+                        </div>
+                        <div class="profile-group">
+                            <div class="profile-name text-center">
+                                <h4><a href="{{ instructor.get_absolute_url }}">{{ instructor.user.get_full_name|title }}</a></h4>
+                                <p>Instructor</p>
+                            </div>
+                            <div class="go-dashboard text-center">
+                                <a href="mailto:{{ instructor.user.email }}" class="btn btn-primary">Contact</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="settings-widget">
+                            <div class="settings-inner-blk p-0">
+                                <div class="sell-course-head comman-space">
+                                    <h3>Courses</h3>
+                                </div>
+                                <div class="comman-space pb-0">
+                                    <div class="instruct-search-blk">
+                                        <div class="show-filter choose-search-blk">
+                                            <form action="#">
+                                                <div class="row gx-2 align-items-center">
+                                                    <div class="col-10 col-item">
+                                                        <form class=" search-group">
+                                                            <i class="feather-search"></i>
+                                                            <input type="text" class="form-control" placeholder="Search {{ instructor.user.get_full_name }} courses" name="q">
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="settings-tickets-blk course-instruct-blk table-responsive">
+
+                                        <table class="table table-nowrap mb-2">
+                                            <thead>
+                                                <tr>
+                                                    <th>COURSES</th>
+                                                    <th>STUDENTS</th>
+                                                    <th>ACTION</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% if courses %}
+                                                {% for course in courses %}
+                                                <tr>
+                                                    <td>
+                                                        <div class="sell-table-group d-flex align-items-center">
+                                                            <div class="sell-group-img">
+                                                                <a href="{{ course.get_absolute_url }}">
+                                                                    <img src="{% if course.cover_image %}{{ course.cover_image.url }}{% else %}/static/img/course/cover.jpg{% endif %}"
+                                                                        class="img-fluid " alt>
+                                                                </a>
+                                                            </div>
+                                                            <div class="sell-tabel-info">
+                                                                <p><a href="{{ course.get_absolute_url }}">{{ course.title|title }}</a></p>
+                                                                <div
+                                                                    class="course-info d-flex align-items-center border-bottom-0 pb-0">
+                                                                    <div
+                                                                        class="rating-img d-flex align-items-center">
+                                                                        <img src="/static/img/icon/icon-01.svg"
+                                                                            alt>
+                                                                        <p>{{ course.units.all.count }}+ Units</p>
+                                                                    </div>
+                                                                    <div
+                                                                        class="course-view d-flex align-items-center">
+                                                                        <img src="/static/img/icon/timer-start.svg"
+                                                                            alt>
+                                                                        <p>{{ course.units.all.count }}hrs {{ course.id }}min</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ course.students.all.count }}</td>
+                                                    <td>
+                                                        <p>KSh. {{ course.price|intcomma }}</p>
+                                                        {% if request.user not in course.students.all %}
+                                                            <a href="{{ course.get_enroll_url }}" class="btn btn-primary btn-sm px-4">Enroll</a>
+                                                        {% else %}
+                                                            <a href="{{ course.get_detail_url }}" class="btn btn-primary btn-sm px-4">View</a>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                                {% endif %}
+                                            </tbody>
+                                            <tfoot class="pagination">
+                                                <tr class="step-links">
+                                                    {% if courses.has_previous %}
+                                                        <td href="?page=1">&laquo; first</td>
+                                                        <td href="?page={{ courses.previous_page_number }}">previous</td>
+                                                    {% endif %}
+                                            
+                                                    <td class="current">
+                                                        Page {{ courses.number }} of {{ courses.paginator.num_pages }}.
+                                                    </td>
+                                            
+                                                    {% if courses.has_next %}
+                                                        <td href="?page={{ courses.next_page_number }}">next</td>
+                                                        <td href="?page={{ courses.paginator.num_pages }}">last &raquo;</td>
+                                                    {% endif %}
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

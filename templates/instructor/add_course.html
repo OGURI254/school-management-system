@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-md-12">
+            <div class="add-course-header">
+                <h2>Add New Course</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="widget-set card-body">
+                    <form method="post" enctype="multipart/form-data" novalidate>
+                        {% csrf_token %}
+                        {{ add_course_form|crispy }}
+                
+                        <button type="submit" class="btn btn-primary px-3x">Submit</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

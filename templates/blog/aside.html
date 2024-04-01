@@ -1,0 +1,71 @@
+<div class="col-lg-3 col-md-12 sidebar-right theiaStickySidebar">
+
+    <div class="card search-widget blog-search blog-widget">
+        <div class="card-body">
+            <form class="search-form">
+                <div class="input-group">
+                    <input type="search" placeholder="Search..." class="form-control" name="q" required>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if blogs %}
+    <div class="card post-widget blog-widget">
+        <div class="card-header">
+            <h4 class="card-title">Recent Posts</h4>
+        </div>
+        <div class="card-body">
+            <ul class="latest-posts">
+                {% for blog in blogs %}
+                <li>
+                    <div class="post-thumb">
+                        <a href="{{ blog.get_absolute_url }}">
+                            <img class="img-fluid" src="{% if blog.front_image %}{{ blog.front_image.url }}{% else %}/static/img/blog/front-default.png{% endif %}" alt>
+                        </a>
+                    </div>
+                    <div class="post-info">
+                        <h4>
+                            <a href="{{ blog.get_absolute_url }}">{{ blog.title|truncatechars:60 }}</a>
+                        </h4>
+                        <p><img class="img-fluid" src="/static/img/icon/icon-22.svg" alt>{{ blog.published_at|date}}
+                        </p>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if categories %}
+    <div class="card category-widget blog-widget">
+        <div class="card-header">
+            <h4 class="card-title">Categories</h4>
+        </div>
+        <div class="card-body">
+            <ul class="categories">
+                <li><a href="{% url 'core:blog_list' %}" class="{% if not category%}text-primary{% endif %}"><i class="fas fa-angle-right"></i> All</a></li>
+                {% for a_category in categories %}
+                <li><a href="{{ a_category.get_blogs_url }}" class="{% if category == a_category %}text-primary{% endif %}"><i class="fas fa-angle-right"></i> {{ a_category.title  }} </a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+    {% if tags %}
+    <div class="card tags-widget blog-widget tags-card">
+        <div class="card-header">
+            <h4 class="card-title">Latest Tags</h4>
+        </div>
+        <div class="card-body">
+            <ul class="tags">
+                {% for tag in tags %}
+                <li><a href="{{ tag.get_blogs_url }}" class="tag">{{ tag.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+</div>

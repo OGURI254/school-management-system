@@ -1,0 +1,159 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<div class="page-content instructor-page-content">
+    <div class="container">
+        <div class="row">
+
+            {% include 'instructor/partials/sidebar.html' %}
+            <div class="col-xl-9 col-md-8">
+                <div class="settings-widget profile-details">
+
+                    <div class="page-banner instructor-bg-blk">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 col-12">
+                                    <div class="profile-info-blk">
+                                        <a href="javascript:;" class="profile-info-img">
+                                            <img src="/static/img/instructor/profile-avatar.jpg" alt class="img-fluid">
+                                        </a>
+                                        <h4><a href="javascript:;">{{ request.user.get_full_name|default:'No Name' }}</a><span>{{ request.user.profile.location }}</span></h4>
+                                        <p>Instructor</p>
+                                        <ul class="list-unstyled inline-inline profile-info-social">
+                                            <li class="list-inline-item">
+                                                <a href="javascript:;">
+                                                    <i class="fa-brands fa-facebook"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="javascript:;">
+                                                    <i class="fa-brands fa-twitter"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="javascript:;">
+                                                    <i class="fa-brands fa-instagram"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="javascript:;">
+                                                    <i class="fa-brands fa-linkedin"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <section class="page-content course-sec">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8">
+
+                                    <div class="card overview-sec">
+                                        <div class="card-body">
+                                            <h5 class="subs-title">About Me</h5>
+                                            <p>{{ request.user.profile.bio|safe }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+
+                                    <div class="card overview-sec">
+                                        <div class="card-body">
+                                            <h5 class="subs-title">Profile Overview</h5>
+                                            <div class="rating-grp">
+                                                <div class="rating">
+                                                    <i class="fas fa-star filled"></i>
+                                                    <i class="fas fa-star filled"></i>
+                                                    <i class="fas fa-star filled"></i>
+                                                    <i class="fas fa-star filled"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <span class="d-inline-block average-rating"><span>5.0</span> (5)</span>
+                                                </div>
+                                                <div class="course-share d-flex align-items-center justify-content-center">
+                                                    <a href="#rate"><i class="fa-regular fa-heart"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="profile-overview-list">
+                                                <div class="list-grp-blk d-flex">
+                                                    <div class="flex-shrink-0">
+                                                        <img src="/static/img/instructor/courses-icon.png" alt="Courses">
+                                                    </div>
+                                                    <div class="list-content-blk flex-grow-1 ms-3">
+                                                        <h5>{{ request.user.courses.all.count }}</h5>
+                                                        <p>Courses</p>
+                                                    </div>
+                                                </div>
+                                                <div class="list-grp-blk d-flex">
+                                                    <div class="flex-shrink-0">
+                                                        <img src="/static/img/instructor/ttl-stud-icon.png" alt="Total Students">
+                                                    </div>
+                                                    <div class="list-content-blk flex-grow-1 ms-3">
+                                                        <h5>{{ request.user.profile.get_total_students }}</h5>
+                                                        <p>Total Students</p>
+                                                    </div>
+                                                </div>
+                                                <div class="list-grp-blk d-flex">
+                                                    <div class="flex-shrink-0">
+                                                        <img src="/static/img/instructor/review-icon.png" alt="Reviews">
+                                                    </div>
+                                                    <div class="list-content-blk flex-grow-1 ms-3">
+                                                        <h5>{{ review.user.profile.get_avg_rating|default:'5' }}</h5>
+                                                        <p>Reviews</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="card overview-sec">
+                                        <div class="card-body">
+                                            <h5 class="subs-title">Contact Details</h5>
+                                            <div class="contact-info-list">
+                                                <div class="edu-wrap">
+                                                    <div class="edu-name">
+                                                        <span><img src="/static/img/instructor/email-icon.png" alt="Address"></span>
+                                                    </div>
+                                                    <div class="edu-detail">
+                                                        <h6>Email</h6>
+                                                        <p><a href="javascript:;"><span>{{ request.user.email }}</span></a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="edu-wrap">
+                                                    <div class="edu-name">
+                                                        <span><img src="/static/img/instructor/address-icon.png"
+                                                                alt="Address"></span>
+                                                    </div>
+                                                    <div class="edu-detail">
+                                                        <h6>Location</h6>
+                                                        <p>{{ request.user.profile.location }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="edu-wrap">
+                                                    <div class="edu-name">
+                                                        <span><img src="/static/img/instructor/phone-icon.png" alt="Address"></span>
+                                                    </div>
+                                                    <div class="edu-detail">
+                                                        <h6>Phone</h6>
+                                                        <p> <a href="javascript:;">{{ request.user.profile.phone_number|default:'-' }}</a></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

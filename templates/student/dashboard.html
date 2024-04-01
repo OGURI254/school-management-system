@@ -1,0 +1,102 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    {% include 'student/partials/topbar.html' %}
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xl-12 col-md-12 my-3">
+                <div class="settings-top-widget student-deposit-blk">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="card stat-info ttl-tickets">
+                                <div class="card-body">
+                                    <div class="view-all-grp d-flex">
+                                        <div class="student-ticket-view">
+                                            <h3>{{ user.profile.get_enrolled_courses.count|default:'0' }}</h3>
+                                            <p>Enrolled Courses</p>
+                                        </div>
+                                        <div class="img-deposit-ticket">
+                                            <img src="/static/img/students/book.svg" alt>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="card stat-info open-tickets">
+                                <div class="card-body">
+                                    <div class="view-all-grp d-flex">
+                                        <div class="student-ticket-view">
+                                            <h3>{{ user.reviews.all.count }}</h3>
+                                            <p>Reviews Left</p>
+                                        </div>
+                                        <div class="img-deposit-ticket">
+                                            <img src="/static/img/students/receipt-text.svg" alt>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-widget">
+                    <div class="settings-inner-blk p-0">
+                        <div class="comman-space pb-0">
+                            <div
+                                class="filter-grp ticket-grp d-flex align-items-center justify-content-between">
+                                <h3>Latest Courses</h3>
+                            </div>
+                            <div class="settings-tickets-blk table-responsive">
+
+                                <table class="table table-nowrap mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>COURSES</th>
+                                            <th>LEVEL</th>
+                                            <th>CATEGORY</th>
+                                            <th>AMOUNT</th>
+                                            <th>CREATED</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if courses %}
+                                        {% for course in courses %}
+                                        <tr>
+                                            <td>
+                                                <div class="sell-table-group d-flex align-items-center">
+                                                    <div class="sell-group-img">
+                                                        <a href="{{ course.get_absolute_url }}">
+                                                            <img src="{% if course.front_image %}{{ course.front_image.url }}{% else %}/static/img/course/course-10.jpg{% endif %}"
+                                                                class="img-fluid " alt>
+                                                        </a>
+                                                    </div>
+                                                    <div class="sell-tabel-info">
+                                                        <p><a href="{{ course.get_absolute_url }}">{{ course.title|title|default:'No Title' }}</a>
+                                                        <p class="text-muted"> {{ course.owner.get_full_name|default:'No Name'}}</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>{{ course.level }}</td>
+                                            <td>{{ course.category }}</td>
+                                            <td>Ksh. {{ course.price|default:'0' }}</td>
+                                            <td>{{ course.created_at|timesince }} Ago</td>
+                                        </tr>
+                                        {% endfor %}
+                                        {% else %}
+                                        <tr>
+                                            <td colspan="5" class="text-center">No Course Found</td>
+                                        </tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+<div class="course-student-header">
+    <div class="container">
+        <div class="student-group">
+            <div class="course-group ">
+                <div class="course-group-img d-flex">
+                    <a href=""><img src="{% if user.profile.image %}{{ user.profile.image.url }}{% else %}/static/img/user/user11.jpg{% endif %}" alt class="img-fluid"></a>
+                    <div class="d-flex align-items-center">
+                        <div class="course-name">
+                            <h4><a href="">{{ request.user.get_full_name|default:'No Name' }}</a><span>{{ request.user.profile.location }}</span></h4>
+                            <p>Student</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-share ">
+                    <a href="{% url 'students:accounts' %}" class="btn btn-primary">Account Settings</a>
+                </div>
+            </div>
+        </div>
+        <div class="my-student-list">
+            <ul>
+                <li><a class="{% if 'Dashboard' in title  %}active{% endif %}" href="{% url 'students:dashboard' %}">Dashboard</a></li>
+                <li><a class="{% if 'Courses' in title  %}active{% endif %}" href="{% url 'students:courses' %}">Courses</a></li>
+                <li><a class="{% if 'Reviews' in title  %}active{% endif %}" href="{% url 'students:reviews' %}">Reviews</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

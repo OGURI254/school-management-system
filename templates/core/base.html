@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>
+        {% if title %}{{ title }} -{% endif %} EduConnect Kenya
+    </title>
+    {% include 'partials/css.html' %}
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+        {% include 'partials/top-nav.html' %}
+        <div class="div" style="min-height: 120px !important;">
+
+        </div>
+        {% include 'partials/breadcrumb.html' %}
+        {% if messages %}
+        <div class="container-fluid m-0">
+            <div class="row justify-content-center py-3 m-0">
+                <div class="col-md-6 m-0">
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} {% if 'error' in message.tags %}alert-danger{% endif %} alert-dismissible fade show m-0" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="page-content">
+            {% block content %}
+
+            {% endblock content %}
+        </div>
+        {% include 'partials/footer.html' %}
+    </div>
+    {% include 'partials/js.html' %}
+</body>
+
+</html>

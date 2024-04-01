@@ -1,0 +1,52 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    <section class="course-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-12">
+                    <div class="row">
+                        {% if blogs %}
+                        {% for blog in blogs %}
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="blog grid-blog">
+                                    <div class="blog-image">
+                                        <a href="{{ blog.get_absolute_url }}"><img class="img-fluid" src="{% if blog.front_image %}{{ blog.front_image.url }}{% else %}/static/img/blog/front-default.png{% endif %}" alt="{{ blog.title }}"></a>
+                                    </div>
+                                    <div class="blog-grid-box">
+                                        <div class="blog-info clearfix">
+                                            <div class="post-left">
+                                                <ul>
+                                                    <li><img class="img-fluid" src="/static/img/icon/icon-22.svg" alt>{{ blog.published_at|date }}</li>
+                                                    <li><img class="img-fluid" src="/static/img/icon/icon-23.svg" alt>
+                                                        {% if blog.tags.all %}
+                                                            {% for tag in blog.tags.all %}
+                                                                {{ tag }}, 
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <h3 class="blog-title"><a href="{{ blog.get_absolute_url }}">{{ blog.title|truncatechars:30 }}</a></h3>
+                                        <div class="blog-content blog-read">
+                                            <p>{{ blog.get_overview|default:'No Description' }}</p>
+                                            <a href="{{ blog.get_absolute_url }}" class="read-more btn btn-primary">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        {% endfor %}
+                        {% else %}
+                        <p class="mx-3">No Blog Post Found</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% include 'blog/aside.html' %}
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

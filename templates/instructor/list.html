@@ -1,0 +1,142 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    <div class="page-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+
+                    <div class="showing-list">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="d-flex align-items-center">
+                                    <div class="show-result">
+                                        <h4>Page {{ instructors.number }} of {{ instructors.paginator.num_pages }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="show-filter add-course-info">
+                                    <form action="#">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-md-5 col-item">
+                                                    <div class="search-group">
+                                                        <input type="text" class="form-control" placeholder="Search for instructors" name="q">
+                                                    </div>
+                                                </div>
+                                            <div class="col-md-5 col-item">
+                                                <div class="form-group select-form mb-0">
+                                                    <select class="form-select select" name="f">
+                                                        <option selected value="recent">Recent</option>
+                                                        <option value="courses">Courses</option>
+                                                        <option value="near">Near me</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-item">
+                                                <button class="btn btn-sm btn-primary me-1"><i class="fa fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        {% if instructors %}
+                            {% for instructor in instructors %}
+                                <div class="col-lg-12 d-flex">
+                                    <div class="instructor-list flex-fill">
+                                        <div class="instructor-img">
+                                            <a href="{{ instructor.get_absolute_url }}">
+                                                <img class="img-fluid" alt src="{% if instructor.image %}{{ instructor.image.url }}{% else %}/static/img/user/default.png{% endif %}">
+                                            </a>
+                                        </div>
+                                        <div class="instructor-content">
+                                            <h5><a href="{{ instructor.get_absolute_url }}">{{ instructor.user.get_full_name|default:'No name' }}</a></h5>
+                                            <h6>Instructor</h6>
+                                            <div class="instructor-info">
+                                                <div class="rating-img d-flex align-items-center">
+                                                    <img src="/static/img/icon/icon-01.svg" class="me-1" alt>
+                                                    <p>{{ instructor.user.courses.all.count }}+ Courses</p>
+                                                </div>
+                                                <div class="course-view d-flex align-items-center ms-0">
+                                                    <img src="/static/img/icon/icon-02.svg" class="me-1" alt>
+                                                    <p>{{ instructor.user.courses.all.count }}hr {{ instructor.id }}min</p>
+                                                </div>
+                                                <div class="rating-img d-flex align-items-center">
+                                                    <img src="/static/img/icon/user-icon.svg" class="me-1" alt>
+                                                    <p>{{ instructor.get_total_students }} Students</p>
+                                                </div>
+                                                <a href="mailto:{{ instructor.user.email }}" class="rating-count">Send Mail</a>
+                                            </div>
+                                            <div class="instructor-badge">
+                                                {% if instructor.user.courses.all %}
+                                                    {% for course in instructor.user.courses.all %}
+                                                        {% if forloop.counter < 4 %}
+                                                        <a href="{{ course.get_absolute_url }}" class="web-badge">{{ course }}</a>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="pagination lms-page lms-pagination">
+                                
+                                {% if instructors.has_previous %}
+                                    <li class="page-item">
+                                        <a href="?page=1" class="page-link"><<</a>
+                                    </li>
+                                    <li class="page-item prev">
+                                        <a class="page-link" href="?page={{ instructors.previous_page_number }}"><</a>
+                                    </li>
+                                {% endif %}
+                                <li class="page-item first-page active">
+                                    <a class="page-link text-white" href="">{{ instructors.number }}/{{ instructors.paginator.num_pages }}</a>
+                                </li>
+                                {% if instructors.has_next %}
+                                    <li class="page-item next">
+                                        <a class="page-link" href="?page={{ instructors.next_page_number }}">></a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ instructors.paginator.num_pages }}">>></a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-3">
+                    <div class="filter-clear">
+                        {% if locations %}
+                        <div class="card search-filter ">
+                            <div class="card-body">
+                                <div class="filter-widget mb-0">
+                                    <div class="categories-head d-flex align-items-center">
+                                        <h4>Location</h4>
+                                        <i class="fas fa-angle-down"></i>
+                                    </div>
+                                    {% for location in locations %}
+                                    <div>
+                                        <label class="custom_check custom_one">
+                                            <a href="?location={{ location }}">{{ location }}</a>
+                                        </label>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

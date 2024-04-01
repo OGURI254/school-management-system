@@ -1,0 +1,69 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<div class="page-content instructor-page-content">
+    <div class="container">
+        <div class="row">
+
+            {% include 'instructor/partials/sidebar.html' %}
+
+            <div class="col-xl-9 col-lg-8 col-md-12">
+                <div class="tak-instruct-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="settings-widget">
+                                <div class="settings-inner-blk p-0">
+                                    <div class="sell-course-head student-meet-head comman-space border-0">
+                                        <div class="tak-head d-flex align-items-center">
+                                            <div>
+                                                <h3>Students</h3>
+                                                <p>Meet people taking your course.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if request.user.courses %}
+                        {% for course in request.user.courses.all %}
+                            {% if course.students.all %}
+                            {% for student in course.students.all %}
+                            <div class="col-xl-4 col-lg-6 col-md-6 d-flex">
+                                <div class="student-box flex-fill">
+                                    <div class="student-box-blks">
+                                        <div class="student-img">
+                                            <a href="">
+                                                <img class="img-fluid" alt="Students Info"
+                                                    src="{% if student.profile.image %}{{ student.profile.image.url }}{% else %}/static/img/user/user1.jpg{% endif %}">
+                                            </a>
+                                        </div>
+                                        <div class="student-content pb-0">
+                                            <h5><a href="">{{ student.get_full_name|default:'No Name' }}</a></h5>
+                                            <div class="loc-blk d-flex align-items-center justify-content-center">
+                                                <i class="feather-map-pin me-2"></i>
+                                                <p>{{ student.profile.location }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="enrol-student-foot">
+                                        <ul>
+                                            <li>Enrolled <span class="px-5">{{ student.date_joined|date }}</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                        {% else %}
+                            <p class="text-center">No Student Found</p>
+                        {% endif %}
+                    </div> 
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

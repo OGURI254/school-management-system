@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+        <div class="page-content instructor-page-content">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card instructor-card">
+                                    <div class="card-header">
+                                        <h4>{{ title }}</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <form action="" method="POST">
+                                            {% csrf_token %}
+                                            {{ form|crispy }}
+                                            <button class="btn btn-primary" type="submit">Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "account/base_entrance.html" %}
+{% load i18n %}
+{% load allauth account socialaccount %}
+{% block head_title %}
+{% trans "Sign In" %}
+{% endblock head_title %}
+{% block content %}
+<div class="login-wrapper">
+    <div class="loginbox">
+        <div class="w-100">
+            <div class="img-logo">
+                <h3 class="fw-bold"><span class="text-primary">Edu</span>Connect</h3>
+                <div class="back-home">
+                    <a href="/">Back to Home</a>
+                </div>
+            </div>
+            {% element h1 %}
+                {% trans "Register" %}
+            {% endelement %}
+            {% url 'account_login' as login_url %}
+            {% element form form=form method="post" action=login_url tags="entrance,login" %}
+                {% slot body %}
+                {% csrf_token %}
+                {% element fields form=form unlabeled=True %}
+            {% endelement %}
+            {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            {% endslot %}
+            {% slot actions %}
+                {% element button type="submit" tags="prominent,login" %}
+                {% trans "Sign In" %}
+            {% endelement %}
+            {% endslot %}
+            {% endelement %}
+        </div>
+    </div>
+    <div class="google-bg text-center">
+        <span>Or sign in with</span>
+        <div class="sign-google">
+            <ul>
+                <li><a href="#"><img src="/static/img/net-icon-01.png" class="img-fluid" alt="Logo"> Sign
+                        In using Google</a></li>
+                <li><a href="#"><img src="/static/img/net-icon-02.png" class="img-fluid" alt="Logo">Sign
+                        In using Facebook</a></li>
+            </ul>
+        </div>
+        {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+        <p class="mb-0">New User? <a href="{{ signup_url }}">Create an Account</a></p>
+    </div>
+</div>
+{% endblock content %}
